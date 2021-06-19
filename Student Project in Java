@@ -1,0 +1,113 @@
+import javax.swing.JOptionPane;
+
+public class Studenti {
+   int n = 25;
+
+   public int[] MbushNota() {
+      int[] Nota = new int[this.n];
+
+      for(int i = 0; i < this.n; ++i) {
+         String s1 = JOptionPane.showInputDialog("Vendos noten:");
+         Nota[i] = new Integer(s1);
+      }
+
+      return Nota;
+   }
+
+   public String[] MbushStudent() {
+      String[] Student = new String[this.n];
+
+      for(int i = 0; i < this.n; ++i) {
+         String s2 = JOptionPane.showInputDialog("Vendos emrin e studentit");
+         Student[i] = s2;
+      }
+
+      return Student;
+   }
+
+   public void NotaNenMesatare(int[] Nota) {
+      double shuma = 0.0D;
+
+      for(int i = 0; i < this.n; ++i) {
+         shuma += (double)Nota[i];
+      }
+
+      double mes = shuma / (double)this.n;
+      System.out.println("Mesatarja:" + mes);
+      int numerues = 0;
+
+      for(int i = 0; i < this.n; ++i) {
+         if ((double)Nota[i] < mes) {
+            ++numerues;
+         }
+      }
+
+      System.out.println("Numri i notave nen mesatare:" + numerues);
+   }
+
+   public double LlogaritMesatareKaluese(int[] Nota) {
+      double shuma = 0.0D;
+      int numerues = 0;
+
+      for(int i = 0; i < this.n; ++i) {
+         if (Nota[i] > 4) {
+            shuma += (double)Nota[i];
+            ++numerues;
+         }
+      }
+
+      double mes = shuma / (double)numerues;
+      return mes;
+   }
+
+   public void AfishoEmerStudenti(int[] Nota, String[] Student, int NotaKerko) {
+      for(int i = 0; i < this.n; ++i) {
+         if (Nota[i] == NotaKerko) {
+            System.out.println(Student[i]);
+         }
+      }
+
+   }
+
+   public void RenditVektor(String[] Student, int[] Nota) {
+      int numerues;
+      int i;
+      for(numerues = 0; numerues < this.n - 1; ++numerues) {
+         for(i = numerues + 1; i < this.n; ++i) {
+            if (Nota[i] > Nota[numerues]) {
+               String s3 = Student[numerues];
+               Student[numerues] = Student[i];
+               Student[i] = s3;
+               int n = Nota[numerues];
+               Nota[numerues] = Nota[i];
+               Nota[i] = n;
+            }
+         }
+      }
+
+      for(numerues = 0; numerues < 25; ++numerues) {
+         System.out.println(Student[numerues] + Nota[numerues]);
+      }
+
+      System.out.println(Nota[0]);
+      numerues = 0;
+
+      for(i = 0; i < 25; ++i) {
+         if (Nota[i] == Nota[0]) {
+            ++numerues;
+         }
+      }
+
+      System.out.println(numerues);
+   }
+
+   public static void main(String[] args) {
+      Studenti objekt = new Studenti();
+      int[] Nota = objekt.MbushNota();
+      String[] Student = objekt.MbushStudent();
+      objekt.NotaNenMesatare(Nota);
+      System.out.println(objekt.LlogaritMesatareKaluese(Nota));
+      objekt.AfishoEmerStudenti(Nota, Student, 5);
+      objekt.RenditVektor(Student, Nota);
+   }
+}
